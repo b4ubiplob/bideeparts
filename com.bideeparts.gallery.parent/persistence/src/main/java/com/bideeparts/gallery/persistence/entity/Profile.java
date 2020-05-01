@@ -2,6 +2,9 @@ package com.bideeparts.gallery.persistence.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
 
@@ -11,12 +14,12 @@ import java.util.Date;
  */
 @Entity
 @NamedQuery(name="Profile.findAll", query="SELECT p FROM Profile p")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Profile implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private String id;
 
 	@Lob
 	private String about;
@@ -45,11 +48,11 @@ public class Profile implements Serializable {
 	public Profile() {
 	}
 
-	public int getId() {
+	public String getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

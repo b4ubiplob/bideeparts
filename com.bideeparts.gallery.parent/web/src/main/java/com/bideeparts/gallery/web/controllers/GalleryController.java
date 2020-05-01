@@ -3,6 +3,7 @@ package com.bideeparts.gallery.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,49 +14,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.HttpStatus;
-
 
 import com.bideeparts.gallery.persistence.entity.Category;
+import com.bideeparts.gallery.persistence.entity.Gallery;
 import com.bideeparts.gallery.service.CategoryService;
+import com.bideeparts.gallery.service.GalleryService;
 
 @RestController
-@RequestMapping("api/v1/categories")
-public class CategoryController {
+@RequestMapping("api/v1/galleries")
+public class GalleryController {
 	
 	@Autowired
-	private CategoryService categoryService;
+	private GalleryService galleryService;
 	
 	@GetMapping
-	public List<Category> getCategories() {
-		return categoryService.getAllCategories();
+	public List<Gallery> getGalleries() {
+		return galleryService.getAllGalleries();
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Category create(@RequestBody Category category) {
-		return categoryService.createCategory(category);
+	public Gallery create(@RequestBody Gallery gallery) {
+		return galleryService.createGallery(gallery);
 	}
 	
 	@GetMapping
 	@RequestMapping("{id}")
-	public Category find(@PathVariable String id) {
-		return categoryService.findById(id);
+	public Gallery find(@PathVariable String id) {
+		return galleryService.findById(id);
 	}
 	
 	@DeleteMapping
 	@RequestMapping(value="{id}", method=RequestMethod.DELETE)
 	public void delete(@PathVariable String id) {
-		categoryService.deleteCategory(id);
+		galleryService.deleteGallery(id);
 	}
 	
 	@RequestMapping(value="{id}", method=RequestMethod.PUT)
-	public Category update(@PathVariable String id, @RequestBody Category category) {
-		Category savedCategory = categoryService.updateCategory(category);
-		if (savedCategory == null) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"); 
+	public Gallery update(@PathVariable String id, @RequestBody Gallery gallery) {
+		Gallery savedGallery = galleryService.updateGallery(gallery);
+		if (savedGallery == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Gallery not found"); 
 		}
-		return savedCategory;
+		return savedGallery;
 	}
-	
+
 }

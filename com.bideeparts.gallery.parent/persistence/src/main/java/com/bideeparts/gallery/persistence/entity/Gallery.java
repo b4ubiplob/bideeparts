@@ -2,6 +2,9 @@ package com.bideeparts.gallery.persistence.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,11 +15,11 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Gallery.findAll", query="SELECT g FROM Gallery g")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Gallery implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 
 	@Temporal(TemporalType.TIMESTAMP)

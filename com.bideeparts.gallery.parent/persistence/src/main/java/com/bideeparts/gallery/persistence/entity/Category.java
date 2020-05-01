@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 
 /**
@@ -12,11 +14,11 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -27,7 +29,7 @@ public class Category implements Serializable {
 	private String description;
 
 	@Column(name="last_updated_on")
-	private String lastUpdatedOn;
+	private Date lastUpdatedOn;
 
 	private String name;
 
@@ -62,11 +64,11 @@ public class Category implements Serializable {
 		this.description = description;
 	}
 
-	public String getLastUpdatedOn() {
+	public Date getLastUpdatedOn() {
 		return this.lastUpdatedOn;
 	}
 
-	public void setLastUpdatedOn(String lastUpdatedOn) {
+	public void setLastUpdatedOn(Date lastUpdatedOn) {
 		this.lastUpdatedOn = lastUpdatedOn;
 	}
 

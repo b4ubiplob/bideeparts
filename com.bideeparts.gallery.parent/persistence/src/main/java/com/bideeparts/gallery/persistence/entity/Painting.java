@@ -3,6 +3,7 @@ package com.bideeparts.gallery.persistence.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
@@ -22,6 +23,7 @@ public class Painting implements Serializable {
 	private String id;
 
 	@Lob
+    @JsonIgnore
 	private byte[] content;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -45,6 +47,7 @@ public class Painting implements Serializable {
 
 	//bi-directional many-to-one association to Gallery
 	@ManyToOne
+    @JsonIgnore
 	private Gallery gallery;
 
 	public Painting() {
